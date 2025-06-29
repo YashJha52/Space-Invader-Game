@@ -1,9 +1,8 @@
 import pygame
 import random
 pygame.init()
-screen_width = 1200
-screen_height = 800
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen_width, screen_height = screen.get_size()
 black = (0, 0, 0)
 white = (255, 255, 255)
 background_image = pygame.image.load("assets/backg.jpg").convert()
