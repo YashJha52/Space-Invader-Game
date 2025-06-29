@@ -42,7 +42,6 @@ class Player(pygame.sprite.Sprite):
             self.rect.y -= self.speed
         if keys[self.down_key]:
             self.rect.y += self.speed
-        # Keep player within screen bounds
         if self.rect.left < 0:
             self.rect.left = 0
         if self.rect.right > screen_width:
@@ -70,7 +69,6 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.y = random.randint(-100, -40)
             self.speed = random.randint(1, 3)
 
-        # Shoot bullets periodically
         self.shoot_timer += 1
         if self.shoot_timer >= self.shoot_delay:
             self.shoot_timer = 0
@@ -83,7 +81,6 @@ class Enemy(pygame.sprite.Sprite):
         game_manager.all_sprites.add(bullet)
 
     def kill(self):
-        # Delete associated enemy bullets when the enemy dies
         for bullet in game_manager.enemy_bullets:
             if bullet.rect.centerx == self.rect.centerx:
                 bullet.kill()
@@ -135,12 +132,12 @@ class GameManager:
         if self.two_player_mode:
             self.all_sprites.add(self.player2)
 
-        self.scores = [0, 0]  # Separate scores for each player
+        self.scores = [0, 0] 
         self.font = pygame.font.SysFont(None, 55)
         self.level = 1
         self.enemy_speed = 1
         self.enemy_count = 3
-        self.enemy_spawn_delay = 120  # Increased delay between enemy spawns (in frames)
+        self.enemy_spawn_delay = 120 
         self.enemy_spawn_timer = 0
         self.game_over = False
         self.spawn_enemies()
@@ -168,10 +165,8 @@ class GameManager:
             self.bullets.update()
             self.enemy_bullets.update()
 
-            # Check for bullet-enemy collisions
             hits = pygame.sprite.groupcollide(self.bullets, self.enemies, True, True)
             for bullet, enemies in hits.items():
-                # Increase score for the player who shot the bullet
                 shooter = bullet.shooter
                 if shooter == self.player1:
                     self.scores[0] += len(enemies)
@@ -219,7 +214,7 @@ class GameManager:
         screen.blit(score_text1, (10, 10))
         if self.two_player_mode:
             score_text2 = self.font.render(f"Player 2 Score: {self.scores[1]}", True, white)
-            screen.blit(score_text2, (screen_width - 300, 10))  # Adjusted position to fit within the screen
+            screen.blit(score_text2, (screen_width - 300, 10))
 
        
         level_text = self.font.render(f"Level: {self.level}", True, white)
@@ -260,10 +255,10 @@ def main():
                 if not game_active:
                     if event.key == pygame.K_1:
                         game_active = True
-                        game_manager = GameManager(two_player_mode=False)  # Single player mode
+                        game_manager = GameManager(two_player_mode=False)  
                     if event.key == pygame.K_2:
                         game_active = True
-                        game_manager = GameManager(two_player_mode=True)  # Two player mode
+                        game_manager = GameManager(two_player_mode=True) 
                 else:
                     game_manager.handle_event(event)
 
