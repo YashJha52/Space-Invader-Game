@@ -5,18 +5,18 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_width, screen_height = screen.get_size()
 black = (0, 0, 0)
 white = (255, 255, 255)
-background_image = pygame.image.load("assets/backg.jpg").convert()
-player1_image = pygame.image.load("assets/player.png").convert_alpha()
+background_image = pygame.image.load("Desktop/assets/backg.jpg").convert()
+player1_image = pygame.image.load("Desktop/assets/player.png").convert_alpha()
 player1_image = pygame.transform.scale(player1_image, (60, 60))
-player2_image = pygame.image.load("assets/player2.png").convert_alpha()
+player2_image = pygame.image.load("Desktop/assets/player2.png").convert_alpha()
 player2_image = pygame.transform.scale(player2_image, (60, 60))
-enemy_image = pygame.image.load("assets/enemy.png").convert_alpha()
+enemy_image = pygame.image.load("Desktop/assets/enemy.png").convert_alpha()
 enemy_image = pygame.transform.scale(enemy_image, (40, 40))
-bullet_image = pygame.image.load("assets/bullet.png").convert_alpha()
+bullet_image = pygame.image.load("Desktop/assets/bullet.png").convert_alpha()
 bullet_image = pygame.transform.scale(bullet_image, (15, 25))
-enemy_bullet_image = pygame.image.load("assets/enemy_bullet.png").convert_alpha()
+enemy_bullet_image = pygame.image.load("Desktop/assets/enemy_bullet.png").convert_alpha()
 enemy_bullet_image = pygame.transform.scale(enemy_bullet_image, (15, 25))
-start_screen_image = pygame.image.load("assets/Title screen.webp").convert()
+start_screen_image = pygame.image.load("Desktop/assets/Title screen.webp").convert()
 start_screen_image = pygame.transform.scale(start_screen_image, (screen_width, screen_height))
 
 class Player(pygame.sprite.Sprite):
@@ -251,7 +251,9 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.KEYDOWN:
-                if not game_active:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                elif not game_active:
                     if event.key == pygame.K_1:
                         game_active = True
                         game_manager = GameManager(two_player_mode=False)  
